@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PacmanSimulator.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HorizontalGridLine" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="BackgroundColor" Value="#e2e2e2"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+            </Style>
+
+            <Style x:Key="VerticalGridLine" TargetType="BoxView">
+                <Setter Property="WidthRequest" Value="1"/>
+                <Setter Property="BackgroundColor" Value="#e2e2e2"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+
+            <Style TargetType="Image">
+                <Setter Property="HeightRequest" Value="48"/>
+                <Setter Property="WidthRequest" Value="48"/>
+            </Style>
+
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderColor" Value="#e2e2e2"/>
+                <Setter Property="HasShadow" Value="False"/>
+                <Setter Property="CornerRadius" Value="16"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout Padding="8">
+
+        <Frame >
+            <!--binding height to self to make it square-->
+            <Grid x:Name="grid" BindingContext="{x:Reference grid}" HeightRequest="{Binding Width}" RowSpacing="0" ColumnSpacing="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <BoxView Style="{StaticResource HorizontalGridLine}" Grid.ColumnSpan="5" Grid.Row="1"/>
+                <BoxView Style="{StaticResource HorizontalGridLine}" Grid.ColumnSpan="5" Grid.Row="2"/>
+                <BoxView Style="{StaticResource HorizontalGridLine}" Grid.ColumnSpan="5" Grid.Row="3"/>
+                <BoxView Style="{StaticResource HorizontalGridLine}" Grid.ColumnSpan="5" Grid.Row="4"/>
+
+                <BoxView Style="{StaticResource VerticalGridLine}" Grid.RowSpan="5" Grid.Column="1"/>
+                <BoxView Style="{StaticResource VerticalGridLine}" Grid.RowSpan="5" Grid.Column="2"/>
+                <BoxView Style="{StaticResource VerticalGridLine}" Grid.RowSpan="5" Grid.Column="3"/>
+                <BoxView Style="{StaticResource VerticalGridLine}" Grid.RowSpan="5" Grid.Column="4"/>
+
+                <Image x:Name="pacImage" Source="pac" Grid.Row="0" Grid.Column="0" Margin="8"/>
+
+            </Grid>
+        </Frame>
+
+        <Label Text="Report Result" FontSize="Small" Opacity=".5"/>
+        <Frame Padding="16,8">
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name="x" Text="X"/>
+                <Label x:Name="y" Text="Y"/>
+                <Label x:Name="ang" Text="Angle"/>
+            </StackLayout>
+        </Frame>
+
+        <Label Text="Commands" FontSize="Small" Opacity=".5"/>
+        
+        <Frame Padding="8">
+            
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand"
+                         Spacing="16">
+
+                <StackLayout>
+                    <Image Source="turn_left" x:Name="leftIcon">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Left_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="LEFT" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Image Source="turn_right" x:Name="rightIcon">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Right_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="RIGHT" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Image Source="move" x:Name="moveIcon">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Move_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="MOVE" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Image Source="report" x:Name="reportIcon">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Report_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="REPORT" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Image Source="place">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Place_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="PLACE" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+            </StackLayout>
+        </Frame>
+
+
+
+    </StackLayout>
+
+</ContentPage>
